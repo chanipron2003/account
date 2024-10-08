@@ -1,32 +1,32 @@
-import 'package:account/screens/form_screen.dart';
-import 'package:account/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:account/provider/transaction_provider.dart';
+import 'provider/attraction_provider.dart';
+import 'screens/home_screen.dart';
+import 'screens/form_screen.dart';
+import 'screens/welcome_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.dumpErrorToConsole(details);
+  };
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  // Root of your application
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) {
-          return TransactionProvider();
-        }),
-      ],
+    return ChangeNotifierProvider(
+      create: (context) => AttractionProvider(),
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'แอพบันทึกสถานที่ท่องเที่ยว',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+          primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(),
+        home:  WelcomeScreen(),
       ),
     );
   }
@@ -40,30 +40,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Provider.of<TransactionProvider>(context, listen: false).initData();
+  int _selectedIndex = 0;
+
+  static List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(), // เอา const ออก
+    FormScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          body: TabBarView(
-            children: [
-              HomeScreen(),
-              FormScreen(),
-            ],
+    return Scaffold(
+      body: _widgetOptions.elementAt(_selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'รายการสถานที่',
           ),
-          bottomNavigationBar: TabBar(
-            tabs: [
-              Tab(text: "รายการธุรกรรม", icon: Icon(Icons.list),),
-              Tab(text: "เพิ่มข้อมูล", icon: Icon(Icons.add),),
-            ],
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'เพิ่มข้อมูล',
           ),
-        ));
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blueAccent,
+        onTap: _onItemTapped,
+      ),
+    );
   }
 }

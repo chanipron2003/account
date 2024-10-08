@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import '../databases/attraction_db.dart';
-import '../models/tourist_attraction.dart';
+import '../models/TouristAttraction.dart';
 
 class AttractionProvider with ChangeNotifier {
   List<TouristAttraction> attractions = [];

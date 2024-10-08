@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import '../models/tourist_attraction.dart';
+import '../models/TouristAttraction.dart';
 import '../provider/attraction_provider.dart';
 
 class EditScreen extends StatefulWidget {
