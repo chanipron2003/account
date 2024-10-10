@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../provider/attraction_provider.dart';
-import '../models/TouristAttraction.dart';
+import '../models/touristAttraction.dart';
 import 'detail_screen.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
