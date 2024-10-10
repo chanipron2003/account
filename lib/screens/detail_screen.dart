@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../models/TouristAttraction.dart';
+import '../models/touristAttraction.dart';
 import 'edit_screen.dart';
 
 class DetailScreen extends StatelessWidget {
